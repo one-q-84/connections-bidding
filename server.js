@@ -1,5 +1,4 @@
 // server.js
-// Simple Node.js + Express + Socket.io server for auction platform
 
 const express = require('express');
 const http = require('http');
@@ -10,18 +9,16 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server, {
   cors: {
-    origin: "*", // In production, specify your frontend URL
+    origin: "*", // NEED TO UPDATE AFTER PRODUCTION
     methods: ["GET", "POST"]
   }
 });
 
-// Middleware
+// Middleware, using CORS and JSON parsing
 app.use(cors());
 app.use(express.json());
 
-// In-memory data storage (simple for learning)
-let users = {}; // socketId -> username
-let bids = {}; // socketId -> {user, amount}
+// lowdb setup  
 let auctionActive = false;
 let auctionTimer = null;
 
@@ -30,7 +27,7 @@ app.get('/', (req, res) => {
   res.json({ status: 'Auction Server Running', users: Object.keys(users).length });
 });
 
-// Socket.io connection handling
+// Socket.io connection
 io.on('connection', (socket) => {
   console.log('New client connected:', socket.id);
 
@@ -74,14 +71,14 @@ io.on('connection', (socket) => {
     }
   });
 
-  // Start auction (admin function)
+  // Start auction (admin/server? function)
   socket.on('startAuction', () => {
     if (!auctionActive) {
       startAuction();
     }
   });
 
-  // Disconnect
+  // Disconnect function
   socket.on('disconnect', () => {
     const username = users[socket.id];
     if (username) {

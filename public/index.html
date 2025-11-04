@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuctionLive Platform</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+      <h1>🎯 AuctionLive</h1>
+      <p>Enter the bidding arena</p>
+      <form id="loginForm">
+        <input 
+          type="text" 
+          id="usernameInput" 
+          placeholder="Enter your name" 
+          maxlength="20" 
+          required
+        />
+        <br>
+        <button type="submit">Join Auction</button>
+      </form>
+    </div>
+
+    <!-- Lobby Screen -->
+    <div id="lobbyScreen" class="lobby-screen hidden">
+      <div class="lobby-header">
+        <h2>Waiting Lobby</h2>
+        <p>Welcome, <span id="welcomeName"></span>! Waiting for auction to start...</p>
+      </div>
+      
+      <div class="chat-area">
+        <h3>Chat Room</h3>
+        <div id="chatMessages" class="chat-messages"></div>
+        <div class="chat-input-area">
+          <input 
+            type="text" 
+            id="chatInput" 
+            placeholder="Type a message..."
+          />
+          <button id="sendMessageBtn">Send</button>
+        </div>
+      </div>
+
+      <div class="users-list">
+        <h3>Online Users (<span id="userCount">0</span>)</h3>
+        <div id="usersList"></div>
+      </div>
+    </div>
+
+    <!-- Auction Screen -->
+    <div id="auctionScreen" class="auction-screen hidden">
+      <div class="auction-header">
+        <h2>🔥 Live Auction</h2>
+        <div class="auction-timer" id="auctionTimer">30</div>
+        <p>Place your bids now!</p>
+      </div>
+
+      <div class="auction-content">
+        <div class="bidding-area">
+          <div class="current-bid">
+            <h3>Your Current Bid</h3>
+            <div class="bid-amount">$<span id="myBidAmount">0</span></div>
+          </div>
+          <div class="bid-buttons">
+            <button class="bid-button" onclick="placeBid(10)">+$10</button>
+            <button class="bid-button" onclick="placeBid(25)">+$25</button>
+            <button class="bid-button" onclick="placeBid(50)">+$50</button>
+            <button class="bid-button" onclick="placeBid(100)">+$100</button>
+          </div>
+        </div>
+
+        <div class="leaderboard">
+          <h3>🏆 Leaderboard</h3>
+          <div id="leaderboardList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Winner Screen -->
+    <div id="winnerScreen" class="winner-screen hidden">
+      <div class="trophy">🏆</div>
+      <h1>Congratulations!</h1>
+      <div class="winner-name" id="winnerName">-</div>
+      <div class="winner-amount">Winning Bid: $<span id="winnerAmount">0</span></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

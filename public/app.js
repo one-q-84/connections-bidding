@@ -1,5 +1,5 @@
-// Connect to backend - CHANGE THIS URL WHEN DEPLOYING
-const SOCKET_URL = 'http://localhost:3001';
+// Connect to backend - 
+const SOCKET_URL = 'https://connections-bidding.onrender.com';
 const socket = io(SOCKET_URL);
 
 // State

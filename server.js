@@ -14,6 +14,9 @@ const io = socketIO(server, {
   }
 });
 
+let users = {};
+let bids = {};
+
 // Middleware, using CORS and JSON parsing
 app.use(cors());
 app.use(express.json());

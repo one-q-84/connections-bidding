@@ -17,6 +17,7 @@ const io = socketIO(server, {
 // Middleware, using CORS and JSON parsing
 app.use(cors());
 app.use(express.json());
+app.use(express.static('public'));
 
 // lowdb setup  
 let auctionActive = false;
@@ -163,4 +164,5 @@ server.listen(PORT, () => {
 });
 
 // Export for testing
+
 module.exports = { app, server, io };
